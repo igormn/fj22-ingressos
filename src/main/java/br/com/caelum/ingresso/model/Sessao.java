@@ -4,14 +4,13 @@ import java.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Sessao {
 	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id @GeneratedValue
 	private Integer id;
 	
 	private LocalTime horario;
@@ -61,7 +60,7 @@ public class Sessao {
 		this.filme = filme;
 	}
 	
-	public LocalTime getHorarioDeTermino() {
+	public LocalTime getHorarioTermino() {
 		return this.horario.plusMinutes(this.filme.getDuracao().toMinutes());
 	}
 	

@@ -30,13 +30,12 @@ public class SessaoController {
 	private SessaoDao sessaoDAO;
 	
 	@GetMapping("/admin/sessao")
-	private ModelAndView form(@RequestParam("salaId") Integer salaID, SessaoForm form) {
+	public ModelAndView form(@RequestParam("salaId") Integer salaId, SessaoForm form) {
+
+		form.setSalaId(salaId);
 		
 		ModelAndView modelAndView = new ModelAndView("sessao/sessao");
-		
-		form.setSalaId(salaID);
-		
-		modelAndView.addObject("sala", salaDAO.findOne(salaID));
+		modelAndView.addObject("sala", salaDAO.findOne(salaId));
 		modelAndView.addObject("filmes", filmeDAO.findAll());
 		modelAndView.addObject("form", form);
 		
@@ -46,7 +45,7 @@ public class SessaoController {
 	
 	@Transactional
 	@PostMapping("/admin/sessao")
-	private ModelAndView save(@Valid SessaoForm form, BindingResult result) {
+	public ModelAndView salva(@Valid SessaoForm form, BindingResult result) {
 		
 		if (result.hasErrors()) {
 			return this.form(form.getSalaId(), form);
