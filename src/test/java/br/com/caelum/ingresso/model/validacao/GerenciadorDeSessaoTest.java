@@ -26,7 +26,7 @@ public class GerenciadorDeSessaoTest {
 		
 		aLagoaAzul = new Filme("A Lagoa Azul", Duration.ofMinutes(120), "Amor");
 		salaZeroUm = new Sala("Sala 01");
-		sessaoExistente = new Sessao(LocalTime.parse("14:00:00"), aLagoaAzul, salaZeroUm);
+		sessaoExistente = new Sessao(LocalTime.parse("14:00:00"), salaZeroUm, aLagoaAzul);
 		
 		
 	}
@@ -34,7 +34,7 @@ public class GerenciadorDeSessaoTest {
 	@Test
 	public void deveNaoCaberQuandoComecaAntesETerminaAntes() {
 		GerenciadorDeSessao gerenciadorDeSessao = new GerenciadorDeSessao(Arrays.asList(sessaoExistente));
-		Sessao sessaoNova = new Sessao(LocalTime.parse("11:00:00"), aLagoaAzul, salaZeroUm);
+		Sessao sessaoNova = new Sessao(LocalTime.parse("11:00:00"), salaZeroUm, aLagoaAzul);
 		
 		boolean coube = gerenciadorDeSessao.cabe(sessaoNova);
 		
@@ -46,7 +46,7 @@ public class GerenciadorDeSessaoTest {
 	public void naoDeveCaberQuandoComecaAntesETerminaDurante() {
 
 		GerenciadorDeSessao gerenciadorDeSessao = new GerenciadorDeSessao(Arrays.asList(sessaoExistente));
-		Sessao sessao = new Sessao(LocalTime.parse("13:00:00"), aLagoaAzul, salaZeroUm);
+		Sessao sessao = new Sessao(LocalTime.parse("13:00:00"), salaZeroUm, aLagoaAzul);
 
 		boolean coube = gerenciadorDeSessao.cabe(sessao);
 		
