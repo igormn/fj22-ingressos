@@ -2,6 +2,7 @@ package br.com.caelum.ingresso.model.validacao;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -15,20 +16,15 @@ import br.com.caelum.ingresso.model.Sessao;
 
 public class GerenciadorDeSessaoTest {
 	
-	
-	
 	private Filme aLagoaAzul;
 	private Sala salaZeroUm;
 	private Sessao sessaoExistente;
 
 	@Before
 	public void setup() {
-		
-		aLagoaAzul = new Filme("A Lagoa Azul", Duration.ofMinutes(120), "Amor");
-		salaZeroUm = new Sala("Sala 01");
+		aLagoaAzul = new Filme("A Lagoa Azul", Duration.ofMinutes(120), "Amor", new BigDecimal("5.00"));
+		salaZeroUm = new Sala("Sala 01", new BigDecimal("10.00"));
 		sessaoExistente = new Sessao(LocalTime.parse("14:00:00"), salaZeroUm, aLagoaAzul);
-		
-		
 	}
 	
 	@Test
@@ -39,12 +35,10 @@ public class GerenciadorDeSessaoTest {
 		boolean coube = gerenciadorDeSessao.cabe(sessaoNova);
 		
 		assertTrue(coube);
-		
 	}
 	
 	@Test
 	public void naoDeveCaberQuandoComecaAntesETerminaDurante() {
-
 		GerenciadorDeSessao gerenciadorDeSessao = new GerenciadorDeSessao(Arrays.asList(sessaoExistente));
 		Sessao sessao = new Sessao(LocalTime.parse("13:00:00"), salaZeroUm, aLagoaAzul);
 
