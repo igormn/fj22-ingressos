@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
+import br.com.caelum.ingresso.model.Filme;
 import br.com.caelum.ingresso.model.Sala;
 import br.com.caelum.ingresso.model.Sessao;
 
@@ -28,6 +29,19 @@ public class SessaoDao {
 		query.setParameter("pSala", sala);
 		
 		return query.getResultList();
+	}
+
+	public List<Sessao> buscarSessoesDoFilme(Filme filme) {
+
+		TypedQuery<Sessao> query = manager.createQuery(" select s from Sessao s "
+				+ " where s.filme = :pFilme ", Sessao.class);
+		query.setParameter("pFilme", filme);
+		
+		return query.getResultList();
+	}
+	
+	public Sessao findOne(Integer id) {
+		return manager.find(Sessao.class, id);
 	}
 	
 }
