@@ -26,28 +26,28 @@
 				<a class="navbar-brand" href="/">Ingresso</a>
 			</div>
 
-
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 
+					<sec:authorize access="isAuthenticated() And hasRole('ADMIN')">
+						<li><a href="/admin/filmes">Filmes</a></li>
+						<li><a href="/admin/salas">Salas</a></li>
+					</sec:authorize>
 
-					<li><a href="/admin/filmes">Filmes</a></li>
-					<li><a href="/admin/salas">Salas</a></li>
 					<li><a href="/filme/em-cartaz">Comprar</a></li>																							
 
 					<sec:authorize access="!isAuthenticated()">
 						<li><a href="/login">Login</a></li>
 					</sec:authorize>
 
-
-					<sec:authorize access="isAnonymous() Or hasRole('COMPRADOR')">
-						<li><a href="/compra">Comprar</a></li>
+					<sec:authorize access="isAuthenticated() And (isAnonymous() Or hasRole('COMPRADOR'))">
+						<li><a href="/compra">Meu Carrinho</a></li>
 					</sec:authorize>
 
-					<sec:authorize access="hasRole('COMPRADOR')">
-						<li><a href="/usuario/compras">Minhas Compras</a></li>
-					</sec:authorize>
+<%-- 					<sec:authorize access="hasRole('COMPRADOR')"> --%>
+<!-- 						<li><a href="/usuario/compras">Minhas Compras</a></li> -->
+<%-- 					</sec:authorize> --%>
 
 					<sec:authorize access="isAuthenticated()">
 						<li><a href="/logout">Logout</a></li>
